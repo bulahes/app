@@ -1,0 +1,37 @@
+[ ca ]
+default_ca = ironman_ca
+[ ironman_ca ]
+# Путь к каталогу CA
+dir = .
+certs = $dir/certs
+new_certs_dir = $dir/newcerts
+database = $dir/index.txt
+serial = $dir/serial
+RANDFILE = $dir/private/.rand
+# Путь к файлам ключей и сертификатов CA
+private_key = $dir/private/ca.key
+certificate = $dir/certs/ca.crt
+# Настройки выдачи сертификатов
+copy_extensions = copy
+default_days = 375
+default_md = sha256
+preserve = no
+policy = ca_policy
+[ ca_policy ]
+countryName = match
+stateOrProvinceName = supplied
+organizationName = supplied
+commonName = supplied
+organizationalUnitName = optional
+commonName = supplied
+[ v3_ca ]
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints = critical, CA:true
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+[ server_cert ]
+basicConstraints = CA:FALSE
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
